@@ -1,0 +1,34 @@
+[
+  {
+    "term": "ICP",
+    "fullName": "Ideal Customer Profile",
+    "chineseName": "理想客户画像",
+    "oneLine": "The type of customer most worth acquiring and serving.",
+    "plainExplanation": "ICP is not just a broad target audience. It defines the customer segment with the strongest pain, best fit, highest value, and clearest buying path.",
+    "scenario": "Use ICP to decide website positioning, SEO topics, landing pages, outbound lists, sales scripts, and product packaging.",
+    "example": "A UK law firm may define an ICP as China-based companies entering the UK/EU market and needing company setup, immigration, compliance, contracts, and IP support.",
+    "relatedTerms": ["SDR", "ABM", "Lead", "MQL", "SQL", "Landing Page"],
+    "tags": ["Growth", "Sales", "B2B"],
+    "topic": "Growth",
+    "sourceTool": "Example",
+    "sourceUrl": "",
+    "notes": "",
+    "status": "ready"
+  },
+  {
+    "term": "SDR",
+    "fullName": "Sales Development Representative",
+    "chineseName": "销售开发代表",
+    "oneLine": "A role responsible for finding, qualifying, and booking conversations with potential customers.",
+    "plainExplanation": "An SDR usually does not close the deal. They identify prospects, check whether they match the ICP, start outreach, and pass qualified opportunities to sales or experts.",
+    "scenario": "In B2B growth, SDRs turn ICP lists and buying signals into qualified calls, demos, or consultations.",
+    "example": "For a legal services firm, an SDR could find companies that recently registered in the UK, raised funding, started hiring, or showed regulatory needs.",
+    "relatedTerms": ["ICP", "Lead", "MQL", "SQL", "CRM", "Pipeline"],
+    "tags": ["Sales", "Outbound", "Growth"],
+    "topic": "Sales",
+    "sourceTool": "Example",
+    "sourceUrl": "",
+    "notes": "",
+    "status": "ready"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "name": "ai-glossary-kit",
+  "version": "0.1.0",
+  "description": "Cross-AI bilingual glossary capture kit with a web dashboard and Chrome extension.",
+  "private": false,
+  "license": "MIT",
+  "scripts": {
+    "check": "node scripts/check.js",
+    "serve": "python3 -m http.server 5173"
+  },
+  "keywords": [
+    "glossary",
+    "ai-tools",
+    "chrome-extension",
+    "knowledge-management",
+    "bilingual",
+    "local-first"
+  ]
+}

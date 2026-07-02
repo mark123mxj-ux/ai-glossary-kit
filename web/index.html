@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Glossary Kit</title>
+    <meta
+      name="description"
+      content="A local-first bilingual glossary dashboard for capturing terms across AI tools."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">AG</div>
+          <div>
+            <strong>AI Glossary Kit</strong>
+            <span>Cross-AI term capture</span>
+          </div>
+        </div>
+
+        <button class="primary-button" id="newTermButton" type="button">+ New term</button>
+
+        <nav class="topic-list" id="topicList" aria-label="Topic filters"></nav>
+
+        <div class="storage-card">
+          <b id="storageMode">Local-first</b>
+          <span id="storageHint">Your glossary stays in this browser by default.</span>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="hero">
+          <div>
+            <span class="eyebrow">Search · Capture · Retrieve</span>
+            <h1>Your reusable glossary for learning with AI tools.</h1>
+          </div>
+          <div class="hero-actions">
+            <button class="secondary-button" id="importButton" type="button">Import card</button>
+            <button class="secondary-button" id="exportMarkdownButton" type="button">Export MD</button>
+            <button class="secondary-button" id="exportJsonButton" type="button">Export JSON</button>
+          </div>
+        </section>
+
+        <div class="search-row">
+          <input
+            id="searchInput"
+            type="search"
+            autocomplete="off"
+            placeholder="Search or capture a term: ICP / SDR / RAG / 流程 Agent"
+          />
+          <button class="primary-button" id="captureButton" type="button" disabled>Capture draft</button>
+        </div>
+
+        <section class="stats" aria-label="Glossary stats">
+          <div class="stat">
+            <b id="totalCount">0</b>
+            <span>Total</span>
+          </div>
+          <div class="stat">
+            <b id="readyCount">0</b>
+            <span>Ready</span>
+          </div>
+          <div class="stat">
+            <b id="draftCount">0</b>
+            <span>Drafts</span>
+          </div>
+          <div class="stat">
+            <b id="topicCount">0</b>
+            <span>Topics</span>
+          </div>
+        </section>
+
+        <div class="tabs" id="statusTabs">
+          <button class="tab active" data-status="all" type="button">All</button>
+          <button class="tab" data-status="ready" type="button">Ready</button>
+          <button class="tab" data-status="draft" type="button">Drafts</button>
+          <button class="tab" data-status="recent" type="button">Recent</button>
+        </div>
+
+        <section class="empty-state" id="emptyState">
+          <h2>No matching terms yet</h2>
+          <p>Capture the search text as a draft, then paste an AI-generated glossary card to enrich it.</p>
+          <button class="primary-button" id="emptyCaptureButton" type="button">Capture current search</button>
+        </section>
+
+        <section class="term-grid" id="termGrid" aria-label="Terms"></section>
+      </main>
+
+      <aside class="detail-panel" id="detailPanel" aria-label="Term detail">
+        <div class="detail-empty">
+          <b>Select a term</b>
+          <span>Definitions, scenarios, examples, and related terms will appear here.</span>
+        </div>
+      </aside>
+    </div>
+
+    <dialog class="term-dialog" id="termDialog">
+      <form method="dialog" class="dialog-card" id="termForm">
+        <div class="dialog-head">
+          <div>
+            <h2 id="dialogTitle">New term</h2>
+            <p>Bilingual fields are optional. Save early, refine later.</p>
+          </div>
+          <button class="icon-button" id="closeDialogButton" type="button" aria-label="Close">×</button>
+        </div>
+
+        <input id="termId" type="hidden" />
+        <div class="form-grid">
+          <label>
+            Term
+            <input id="termName" required placeholder="ICP" />
+          </label>
+          <label>
+            Topic
+            <select id="termTopic"></select>
+          </label>
+          <label>
+            Full name
+            <input id="termFullName" placeholder="Ideal Customer Profile" />
+          </label>
+          <label>
+            中文名
+            <input id="termChineseName" placeholder="理想客户画像" />
+          </label>
+          <label class="wide">
+            One-line definition
+            <input id="termOneLine" placeholder="The type of customer most worth acquiring and serving." />
+          </label>
+          <label class="wide">
+            Plain explanation
+            <textarea id="termPlainExplanation"></textarea>
+          </label>
+          <label class="wide">
+            Scenario
+            <textarea id="termScenario"></textarea>
+          </label>
+          <label class="wide">
+            Example
+            <textarea id="termExample"></textarea>
+          </label>
+          <label>
+            Related terms
+            <input id="termRelatedTerms" placeholder="SDR, ABM, Lead" />
+          </label>
+          <label>
+            Tags
+            <input id="termTags" placeholder="Growth, Sales" />
+          </label>
+          <label>
+            Source tool
+            <input id="termSourceTool" placeholder="ChatGPT / Claude / Codex" />
+          </label>
+          <label>
+            Source URL
+            <input id="termSourceUrl" placeholder="https://..." />
+          </label>
+          <label>
+            Status
+            <select id="termStatus">
+              <option value="ready">Ready</option>
+              <option value="draft">Draft</option>
+            </select>
+          </label>
+          <label class="wide">
+            Notes
+            <textarea id="termNotes"></textarea>
+          </label>
+        </div>
+
+        <div class="dialog-actions">
+          <button class="danger-button" id="deleteTermButton" type="button">Delete</button>
+          <span></span>
+          <button class="secondary-button" id="clearFormButton" type="button">Clear</button>
+          <button class="primary-button" type="submit">Save term</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="term-dialog" id="importDialog">
+      <form method="dialog" class="dialog-card" id="importForm">
+        <div class="dialog-head">
+          <div>
+            <h2>Import glossary card</h2>
+            <p>Paste standard JSON or a key-value card from any AI tool.</p>
+          </div>
+          <button class="icon-button" id="closeImportButton" type="button" aria-label="Close">×</button>
+        </div>
+        <textarea
+          id="importText"
+          class="import-textarea"
+          placeholder="词条：SDR&#10;英文全称：Sales Development Representative&#10;中文名：销售开发代表&#10;一句话解释：负责寻找、筛选并预约潜在客户的人。&#10;主题：Sales&#10;相关词：ICP, MQL, SQL"
+        ></textarea>
+        <div class="dialog-actions">
+          <span id="importMessage"></span>
+          <button class="secondary-button" id="pasteClipboardButton" type="button">Paste clipboard</button>
+          <button class="primary-button" type="submit">Parse and save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="../src/schema.js"></script>
+    <script src="../src/parser.js"></script>
+    <script src="../src/storage.js"></script>
+    <script src="../src/seed.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

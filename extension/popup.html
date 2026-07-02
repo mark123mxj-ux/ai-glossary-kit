@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Glossary Kit</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header>
+        <div class="brand-mark">AG</div>
+        <div>
+          <h1>AI Glossary Kit</h1>
+          <p>Capture terms across AI tools.</p>
+        </div>
+      </header>
+
+      <label class="search-box">
+        <span>Search or capture</span>
+        <input id="termInput" placeholder="ICP / SDR / RAG / 增长引擎" autocomplete="off" />
+      </label>
+
+      <div class="actions">
+        <button id="openButton" type="button">Open</button>
+        <button id="captureButton" type="button">Save draft</button>
+      </div>
+
+      <button class="wide-button" id="importClipboardButton" type="button">
+        Import glossary card from clipboard
+      </button>
+      <button class="wide-button subtle" id="dashboardButton" type="button">
+        Open dashboard
+      </button>
+
+      <section>
+        <div class="section-title">Recent terms</div>
+        <div class="recent-list" id="recentList"></div>
+      </section>
+
+      <p class="hint" id="message">Right-click selected text on any page to save it as a draft.</p>
+    </main>
+
+    <script src="../src/schema.js"></script>
+    <script src="../src/parser.js"></script>
+    <script src="../src/storage.js"></script>
+    <script src="../src/seed.js"></script>
+    <script src="./popup.js"></script>
+  </body>
+</html>
