@@ -57,6 +57,7 @@
     lines.forEach((rawLine) => {
       const cleaned = rawLine.replace(/^[\s>*-]+/, "").trim();
       if (!cleaned) return;
+      if (/^```/.test(cleaned)) return;
 
       const match = cleaned.match(/^([^:：]{1,32})[:：]\s*(.*)$/);
       if (match) {
