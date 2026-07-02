@@ -1,0 +1,38 @@
+.agk-save-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 12px;
+  padding: 8px 10px;
+  border: 1px solid rgba(21, 115, 95, 0.22);
+  border-radius: 8px;
+  background: rgba(245, 248, 247, 0.96);
+  color: #18211f;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  font-size: 12px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.agk-save-button {
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: #18211f;
+  color: #fff;
+  font: inherit;
+  font-weight: 760;
+  cursor: pointer;
+}
+
+.agk-save-button:disabled {
+  cursor: default;
+  background: #72807b;
+}
+
+.agk-save-status {
+  color: #65716e;
+}

@@ -4,6 +4,17 @@ Cross-AI bilingual glossary capture for people learning and working with AI tool
 
 AI Glossary Kit helps you look up a term once, save it as a structured concept card, and retrieve it later from your browser. It is local-first, bilingual by default, and does not require an AI API key.
 
+It is designed for the messy reality of modern AI work: you may ask ChatGPT today, Claude tomorrow, Codex inside a coding workspace, and Perplexity while researching. The glossary should belong to you, not to one AI product.
+
+## What It Does
+
+- Detects importable `Glossary Card` answers on supported AI pages and adds a **Save to AI Glossary Kit** button.
+- Lets you right-click selected text to save a draft term.
+- Lets you right-click a selected glossary card to import the full structured concept.
+- Provides a browser dashboard for search, filtering, editing, related terms, and export.
+- Includes a Codex skill template so Codex can append import-ready glossary cards.
+- Uses a small open card protocol that any AI tool can output.
+
 ## Why
 
 When working with ChatGPT, Claude, Gemini, Perplexity, Cursor, Codex, docs, or customer conversations, people constantly run into domain-specific terms:
@@ -31,6 +42,8 @@ AI Glossary Kit solves this with a small shared protocol and a browser-based wor
 - Web dashboard for search, filtering, editing, import, and export.
 - Chrome extension popup for quick search and capture.
 - Right-click selected text on any page and save it as a draft term.
+- Right-click selected glossary cards and import them directly.
+- One-click save buttons for detected glossary cards on supported AI pages.
 - Standard card parser for JSON and key-value text cards.
 - Local-first storage with `chrome.storage.local` inside the extension.
 - Standalone web dashboard fallback with IndexedDB.
@@ -47,6 +60,31 @@ AI Glossary Kit solves this with a small shared protocol and a browser-based wor
 6. Pin the extension if you want it available from the toolbar.
 
 The extension uses the project root as the extension root because `manifest.json` lives at the root.
+
+## One-Click Capture
+
+On supported AI pages, the extension scans for standard glossary cards and inserts a save bar near the answer:
+
+```text
+Save card to AI Glossary Kit
+```
+
+Currently supported page patterns include:
+
+- ChatGPT: `chatgpt.com`, `chat.openai.com`
+- Claude: `claude.ai`
+- Gemini: `gemini.google.com`
+- Perplexity: `perplexity.ai`
+- Microsoft Copilot: `copilot.microsoft.com`
+- Poe: `poe.com`
+- Local development pages: `localhost`, `127.0.0.1`
+
+The extension does not call an AI API. It only saves cards that already appear on the page.
+
+You can also use the context menu anywhere:
+
+- Select a single term, then right-click **Save selected text as draft term**.
+- Select a full glossary card, then right-click **Import selected glossary card**.
 
 ## Use The Dashboard
 
@@ -113,7 +151,7 @@ After that, ask Codex questions like:
 Use $ai-glossary-kit. What does SDR mean?
 ```
 
-Codex will answer normally and append an import-ready `Glossary Card` that you can paste into the dashboard or extension import box.
+Codex will answer normally and append an import-ready `Glossary Card`. If the answer is shown in a supported browser page, use the one-click save button. Otherwise, copy the card into the dashboard or extension import box.
 
 ## Project Structure
 
@@ -133,6 +171,8 @@ ai-glossary-kit/
 │   └── app.js
 ├── extension/
 │   ├── background.js          # Context-menu capture
+│   ├── content.js             # One-click save button injection
+│   ├── content.css
 │   ├── popup.html
 │   ├── popup.css
 │   └── popup.js
@@ -168,8 +208,16 @@ AI Glossary Kit is local-first:
 - It does not require an API key.
 - It stores extension data in `chrome.storage.local`.
 - It stores standalone web data in IndexedDB.
+- The content script only looks for importable glossary-card patterns on supported AI pages.
 
 If you paste sensitive content into a glossary card, it stays in your local browser unless you export or sync it yourself.
+
+## Current Limitations
+
+- The extension does not generate explanations by itself. Without an AI API, selected bare terms are saved as drafts.
+- One-click card detection depends on the AI answer containing the standard card format.
+- Codex desktop cannot write directly into Chrome extension storage yet. Use the Codex skill to generate a card, then save it through the browser extension or dashboard.
+- Sync is not built in yet. Export JSON or Markdown for backup.
 
 ## Roadmap
 
@@ -179,6 +227,7 @@ If you paste sensitive content into a glossary card, it stays in your local brow
 - Browser sidebar mode.
 - Review/flashcard mode.
 - Optional AI provider adapters for users who want automatic explanations.
+- Optional local bridge CLI for direct Codex-to-glossary import.
 
 ## License
 

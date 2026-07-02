@@ -12,6 +12,8 @@ const requiredFiles = [
   "web/styles.css",
   "web/app.js",
   "extension/background.js",
+  "extension/content.js",
+  "extension/content.css",
   "extension/popup.html",
   "extension/popup.css",
   "extension/popup.js",
@@ -28,8 +30,17 @@ if (missing.length) {
   throw new Error(`Missing files:\n${missing.join("\n")}`);
 }
 
-JSON.parse(fs.readFileSync(path.join(root, "manifest.json"), "utf8"));
-JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
+const manifest = JSON.parse(fs.readFileSync(path.join(root, "manifest.json"), "utf8"));
+const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
+if (manifest.version !== pkg.version) {
+  throw new Error(`manifest.json version ${manifest.version} does not match package.json ${pkg.version}`);
+}
+if (!manifest.content_scripts?.[0]?.js?.includes("extension/content.js")) {
+  throw new Error("manifest.json does not register extension/content.js");
+}
+if (!manifest.content_scripts?.[0]?.css?.includes("extension/content.css")) {
+  throw new Error("manifest.json does not register extension/content.css");
+}
 
 const jsFiles = requiredFiles.filter((file) => file.endsWith(".js"));
 for (const file of jsFiles) {

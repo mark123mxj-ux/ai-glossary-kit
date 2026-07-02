@@ -1,6 +1,6 @@
 {
   "name": "ai-glossary-kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Cross-AI bilingual glossary capture kit with a web dashboard and Chrome extension.",
   "private": false,
   "license": "MIT",

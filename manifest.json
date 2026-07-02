@@ -1,12 +1,36 @@
 {
   "manifest_version": 3,
   "name": "AI Glossary Kit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Capture, save, and retrieve bilingual glossary cards across AI tools.",
   "permissions": ["storage", "contextMenus", "clipboardRead"],
   "background": {
     "service_worker": "extension/background.js"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://perplexity.ai/*",
+        "https://www.perplexity.ai/*",
+        "https://copilot.microsoft.com/*",
+        "https://poe.com/*",
+        "http://localhost/*",
+        "http://127.0.0.1/*"
+      ],
+      "js": [
+        "src/schema.js",
+        "src/parser.js",
+        "src/storage.js",
+        "extension/content.js"
+      ],
+      "css": ["extension/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
   "action": {
     "default_title": "AI Glossary Kit",
     "default_popup": "extension/popup.html"
