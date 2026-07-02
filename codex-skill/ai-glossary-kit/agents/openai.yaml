@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Glossary Kit"
+  short_description: "Generate importable glossary cards for AI Glossary Kit."
+  default_prompt: "Explain this term and append an AI Glossary Kit card."

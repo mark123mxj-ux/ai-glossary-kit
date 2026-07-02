@@ -15,6 +15,8 @@ const requiredFiles = [
   "extension/popup.html",
   "extension/popup.css",
   "extension/popup.js",
+  "codex-skill/ai-glossary-kit/SKILL.md",
+  "codex-skill/ai-glossary-kit/agents/openai.yaml",
   "README.md",
   "LICENSE",
   "docs/card-protocol.md",

@@ -92,11 +92,36 @@ Paste that into **Import card**, and it becomes searchable.
 
 See [docs/card-protocol.md](docs/card-protocol.md) for the full protocol.
 
+## Codex Skill
+
+This repository includes a lightweight Codex skill template:
+
+```text
+codex-skill/ai-glossary-kit/
+```
+
+To install it locally:
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R codex-skill/ai-glossary-kit ~/.codex/skills/
+```
+
+After that, ask Codex questions like:
+
+```text
+Use $ai-glossary-kit. What does SDR mean?
+```
+
+Codex will answer normally and append an import-ready `Glossary Card` that you can paste into the dashboard or extension import box.
+
 ## Project Structure
 
 ```text
 ai-glossary-kit/
 ├── manifest.json              # Chrome extension manifest
+├── codex-skill/
+│   └── ai-glossary-kit/        # Optional Codex skill template
 ├── src/
 │   ├── schema.js              # Term schema, normalization, dedupe helpers
 │   ├── parser.js              # JSON and text-card parser
